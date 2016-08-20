@@ -4,8 +4,29 @@ var morgan = require('morgan');
 //var mongoose = require('mongoose');
 
 //CONSTANTS
-//TODO add conversion and other constants
-
+//These are production values in Kilos CO2/Kilo food
+const LAMB = 39.2;
+const BEEF = 27.0;
+const CHEESE = 13.5;
+const PORT = 12.1;
+const TURKEY = 10.9;
+const CHICKEN = 6.9;
+const TUNA = 6.1;
+const SALMON = 4.1;
+const EGGS = 4.8;
+const POTATOES = 2.9;
+const RICE = 2.7;
+const NUTS = 2.3;
+const BEANS = 2.0;
+const LENTILS = 0.9;
+const FRUIT = 1.1;
+const VEGITABLES = 2.0;
+const GRAINS = 2.8;
+const BAKEDGOODS = 2.8;
+const DRINKS = 0.4; 
+const OILS = 1.8;
+const CONDIMENTS = 1.8;
+const SUGARS = 1.8;
 
 // configure app
 var app = express();
@@ -49,7 +70,9 @@ router.route('/food')
 
 		//	res.json({ message: 'Bear created!' });
 		//});
-	        
+	        var food = req.body.food;
+                var quant = req.body.quantity;
+                
 		var co2 = '' + 10; //TODO add actuall calculation
 		res.json({co2: co2});
 	})
@@ -62,7 +85,7 @@ router.route('/food')
 
 		//	res.json(bears);
 		//});
-                res.json({message: 'food'});
+                res.json({message: 'got eats'});
 	});
 
 
