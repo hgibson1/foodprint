@@ -1,28 +1,27 @@
-// BASE SETUP
-// =============================================================================
-
-// call the packages we need
-var express    = require('express');
+var express = require('express');
 var bodyParser = require('body-parser');
-var app        = express();
-var morgan     = require('morgan');
+var morgan = require('morgan');
+//var mongoose = require('mongoose');
+
+//CONSTANTS
+//TODO add conversion and other constants
+
 
 // configure app
+var app = express();
 app.use(morgan('dev')); // log requests to the console
 
 // configure body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port     = process.env.PORT || 8080; // set our port
+var port = process.env.PORT || 8080; // set our port
 
-var mongoose   = require('mongoose');
-mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o'); // connect to our database
-var Bear     = require('./app/models/bear');
+//mongoose.connect('mongodb://node:node@novus.modulusmongo.net:27017/Iganiq8o'); // connect to our database
+//var Food = require('./app/models/food');
+//var User = require('./app/modules/user');
 
 // ROUTES FOR OUR API
-// =============================================================================
-
 // create our router
 var router = express.Router();
 
@@ -38,84 +37,46 @@ router.get('/', function(req, res) {
 	res.json({ message: 'hooray! welcome to our api!' });	
 });
 
-// on routes that end in /bears
-// ----------------------------------------------------
-router.route('/bears')
-
-	// create a bear (accessed at POST http://localhost:8080/bears)
+// on routes that end in /food
+router.route('/food')
 	.post(function(req, res) {
-		
-		var bear = new Bear();		// create a new instance of the Bear model
-		bear.name = req.body.name;  // set the bears name (comes from the request)
+		//var bear = new Bear();
+		//bear.name = req.body.name;  // set the bears name (comes from the request)
 
-		bear.save(function(err) {
-			if (err)
-				res.send(err);
+		//bear.save(function(err) {
+		//	if (err)
+		//		res.send(err);
 
-			res.json({ message: 'Bear created!' });
-		});
-
-		
+		//	res.json({ message: 'Bear created!' });
+		//});
+	        
+		var co2 = '' + 10; //TODO add actuall calculation
+		res.json({co2: co2});
 	})
 
-	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	// get all the food (accessed at GET http://localhost:8080/api/food)
 	.get(function(req, res) {
-		Bear.find(function(err, bears) {
-			if (err)
-				res.send(err);
+		//Bear.find(function(err, bears) {
+		//	if (err)
+		//		res.send(err);
 
-			res.json(bears);
-		});
+		//	res.json(bears);
+		//});
+                res.json({message: 'food'});
 	});
 
-// on routes that end in /bears/:bear_id
-// ----------------------------------------------------
-router.route('/bears/:bear_id')
 
-	// get the bear with that id
+router.route('/daily_average')
 	.get(function(req, res) {
-		Bear.findById(req.params.bear_id, function(err, bear) {
-			if (err)
-				res.send(err);
-			res.json(bear);
-		});
-	})
-
-	// update the bear with this id
-	.put(function(req, res) {
-		Bear.findById(req.params.bear_id, function(err, bear) {
-
-			if (err)
-				res.send(err);
-
-			bear.name = req.body.name;
-			bear.save(function(err) {
-				if (err)
-					res.send(err);
-
-				res.json({ message: 'Bear updated!' });
-			});
-
-		});
-	})
-
-	// delete the bear with this id
-	.delete(function(req, res) {
-		Bear.remove({
-			_id: req.params.bear_id
-		}, function(err, bear) {
-			if (err)
-				res.send(err);
-
-			res.json({ message: 'Successfully deleted' });
-		});
-	});
+             var average = 32.85;
+             res.json({avg: '' + average});
+        });
 
 
 // REGISTER OUR ROUTES -------------------------------
-app.use('/api', router);
+app.use('/api', router); //Think this prefixes the routes with "/api"
 
 // START THE SERVER
-// =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
