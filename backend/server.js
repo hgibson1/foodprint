@@ -37,6 +37,14 @@ var units = {
 	"PINTS": 0.4731,
 }
 
+// packaging
+var packages = {
+	"CUP": 0.11,
+	"BAG": 0.1378,
+	"BOTTLE": 3.7845
+}
+
+
 //HELPER FUNCTIONS
 //Takes a quanity and unit and returns that quanity in kilos
 function convert(quant, unit) {
@@ -72,18 +80,36 @@ router.get('/', function(req, res) {
 // on routes that end in /food
 router.route('/food')
 	.post(function(req, res) {
-	        var food = req.body.food;
-                var quant = req.body.quantity;
-                var unit = req.body.unit;
-                
-                var co2 = foods[food] * convert(quant, unit);
-		res.json({co2: co2});
+		var food = req.body.food;
+		var quant = req.body.quantity;
+		var unit = req.body.unit;
+
+		var co2 = foods[food] * convert(quant, unit);
+		//var co2=food*quant*unit;
+		res.json({ co2: co2 });
 	})
 
-	// get all the food (accessed at GET http://localhost:8080/api/food)
-	.get(function(req, res) {
-                res.json({message: 'got eats'});
-	});
+// get all the food (accessed at GET http://localhost:8080/api/food)
+.get(function(req, res) {
+	res.json({ message: 'got eats' });
+});
+
+// on routes that end in /food
+router.route('/packaging')
+	.post(function(req, res) {
+		var package = req.body.package;
+		var quantity = req.body.quantity;
+
+		var co2 = packages[package] * quantity;
+		//var co2=food*quant*unit;
+		res.json({ co2: co2 });
+	})
+
+// get all the food (accessed at GET http://localhost:8080/api/food)
+.get(function(req, res) {
+	res.json({ message: 'got eats' });
+});
+
 
 
 router.route('/daily_average')
