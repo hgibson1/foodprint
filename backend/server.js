@@ -5,28 +5,30 @@ var morgan = require('morgan');
 
 //CONSTANTS
 //These are production values in Kilos CO2/Kilo food
-const LAMB = 39.2;
-const BEEF = 27.0;
-const CHEESE = 13.5;
-const PORT = 12.1;
-const TURKEY = 10.9;
-const CHICKEN = 6.9;
-const TUNA = 6.1;
-const SALMON = 4.1;
-const EGGS = 4.8;
-const POTATOES = 2.9;
-const RICE = 2.7;
-const NUTS = 2.3;
-const BEANS = 2.0;
-const LENTILS = 0.9;
-const FRUIT = 1.1;
-const VEGITABLES = 2.0;
-const GRAINS = 2.8;
-const BAKEDGOODS = 2.8;
-const DRINKS = 0.4; 
-const OILS = 1.8;
-const CONDIMENTS = 1.8;
-const SUGARS = 1.8;
+var constants = {
+	LAMB: 39.2,
+	BEEF: 27.0,
+	CHEESE: 13.5,
+	PORT: 12.1,
+	TURKEY: 10.9,
+	CHICKEN: 6.9,
+	TUNA: 6.1,
+	SALMON: 4.1,
+	EGGS: 4.8,
+	POTATOES: 2.9,
+	RICE: 2.7,
+	NUTS: 2.3,
+	BEANS: 2.0,
+	LENTILS: 0.9,
+	FRUIT: 1.1,
+	VEGITABLES: 2.0,
+	GRAINS: 2.8,
+	BAKEDGOODS: 2.8,
+	DRINKS: 0.4,
+	OILS: 1.8,
+	CONDIMENTS: 1.8,
+	SUGARS: 1.8
+};
 
 // configure app
 var app = express();
@@ -72,7 +74,8 @@ router.route('/food')
 		//});
 	        var food = req.body.food;
                 var quant = req.body.quantity;
-                
+                 
+                         
 		var co2 = '' + 10; //TODO add actuall calculation
 		res.json({co2: co2});
 	})
@@ -91,7 +94,7 @@ router.route('/food')
 
 router.route('/daily_average')
 	.get(function(req, res) {
-             var average = 32.85;
+             var average = 14.93;
              res.json({avg: '' + average});
         });
 
